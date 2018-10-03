@@ -19,18 +19,18 @@ public class TestBase {
 	public String dataInputFile;
 	public String baseDir;
 	public int timeoutSecond;
+	public String dataInputImg;
 	
 	public TestBase() {
 		config = Utils.loadConfig("config.properties");
 		baseUrl = config.getProperty("APP_BASE_URL");
-		objectRepoFile = config.getProperty("LINEAR_CHANNEL_PAGE_FILE");
+		objectRepoFile = config.getProperty("UPLOAD_PAGE_FILE");
 		dataInputFile = config.getProperty("DATA_INPUT_FILE");
-		timeoutSecond = Integer.parseInt(config.getProperty("TESTBASE_DEFAULT_TIMEOUT_SECOND"));
 		baseDir  = System.getProperty("user.dir");
+		dataInputImg = baseDir + "\\data_input\\image\\";
 	}
 	
 	public void initSeleniumTest(String browser) {
-//		String browser = System.getProperty("browser");
 		Log.info("Browser: " + browser);
 		if ("chrome".equalsIgnoreCase(browser)) {
 			System.setProperty("webdriver.chrome.driver", config.getProperty("BROWSER_DRIVER_CHROME"));
@@ -39,6 +39,7 @@ public class TestBase {
 			System.setProperty("webdriver.ie.driver", config.getProperty("BROWSER_DRIVER_IE"));
 			driver = new InternetExplorerDriver();
 		} else {
+			System.setProperty("webdriver.gecko.driver", config.getProperty("BROWSER_DRIVER_FIREFOX"));
 			driver = new FirefoxDriver();
 		}
 		
@@ -57,7 +58,8 @@ public class TestBase {
 				input.setUploadTo(dataInput[i][1]);
 				input.setSubFolderName(dataInput[i][2]);
 				input.setEmail(dataInput[i][3]);
-				input.setExpected(dataInput[i][4]);
+				input.setFirstName(dataInput[0][4]);
+				input.setExpected(dataInput[i][5]);
 				lstInput.add(input);
 			}
 		}

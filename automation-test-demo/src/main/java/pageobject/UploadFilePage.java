@@ -2,6 +2,9 @@ package pageobject;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
 import model.Information;
@@ -72,7 +75,7 @@ public class UploadFilePage extends TestBase{
 
 	public void uploadInfo(Information info) throws InterruptedException {
 		// 1. Choose file  to upload
-		Action.uploadFile(driver, locBtnUploadFile, info.getFileUpload());
+		Action.uploadFile(driver, locBtnUploadFile, dataInputImg + info.getFileUpload());
 		// 2. Select dropdown upload to
 		Action.selectByVisibleText(driver, locSelectUploadTo, info.getUploadTo());
 		// 3. Input subfolder
@@ -95,7 +98,7 @@ public class UploadFilePage extends TestBase{
 		if (!expected.equals("") && expected.equalsIgnoreCase(Constants.SUCCESSFULLY)) {
 			String emailActual = Action.getText(driver, locSummaryEmail);
 			Assert.assertEquals(emailActual, "Email Address: " + info.getEmail());
-			String firstNameActual = Action.getText(driver, locTxtFirstName);
+			String firstNameActual = Action.getText(driver, locSummaryFirstName);
 			Assert.assertEquals(firstNameActual, "First Name: " + info.getFirstName());
 			String fileNameActual = Action.getAttribute(driver, locSummaryFileName, Constants.ATTR_VALUE);
 			Assert.assertEquals(fileNameActual, info.getFileUpload());

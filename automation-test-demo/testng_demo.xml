@@ -3,7 +3,7 @@
   <test name="Test">
   <parameter name="browser" value="chrome" />
     <classes>
-      <class name="test.LoginPageTest"/>
+      <class name="test.UploadPageTest"/>
     </classes>
   </test> <!-- Test -->
 </suite> <!-- Suite -->

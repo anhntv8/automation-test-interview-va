@@ -45,13 +45,13 @@ public class Action {
 	
 	public static String getText(WebDriver driver, By elementLocator) {
 		String text = findElement(driver, elementLocator).getText();
-		Log.info("Get text of element at " + elementLocator.toString());
+		Log.info("Get text of element at " + elementLocator.toString() + " = " + text);
 		return text;
 	}
 	
 	public static String getAttribute(WebDriver driver, By elementLocator, String attribute) {
 		String text = findElement(driver, elementLocator).getAttribute(attribute);
-		Log.info("Get text of element at " + elementLocator.toString());
+		Log.info("Get text of element at " + elementLocator.toString() + " = " + text);
 		return text;
 	}
 	
@@ -67,8 +67,8 @@ public class Action {
 	
 	public static WebElement findElement(WebDriver driver, By locator) {
 		try {
-			WebElement element = (new WebDriverWait(driver, 30))
-					   .until(ExpectedConditions.visibilityOfElementLocated(locator));
+			WebDriverWait wait = new WebDriverWait(driver, Constants.TIME_OUT_SECOND);
+		    WebElement element = wait.until(ExpectedConditions.presenceOfElementLocated(locator));
 			return element;
 		} catch (ElementNotVisibleException e) {
 			Log.debug("Element at" + locator.toString() + " NOT FOUND");
